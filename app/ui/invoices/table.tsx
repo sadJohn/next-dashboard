@@ -1,10 +1,65 @@
 import Image from 'next/image';
 import { UpdateInvoice, DeleteInvoice } from '@/app/ui/invoices/buttons';
 import InvoiceStatus from '@/app/ui/invoices/status';
-import { formatDateToLocal, formatCurrency } from '@/app/lib/utils';
-import { fetchFilteredInvoices } from '@/app/lib/data';
+import { formatDateToLocal, formatCurrency } from '@/lib/utils';
+import { fetchFilteredInvoices } from '@/lib/data';
+import {
+  useReactTable,
+  ColumnDef,
+  getCoreRowModel,
+  flexRender,
+} from '@tanstack/react-table';
+import { InvoicesTable } from '@/lib/definitions';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import TTable from './TTable';
 
-export default async function InvoicesTable({
+// const columns: ColumnDef<InvoicesTable>[] = [
+//   {
+//     accessorKey: 'name',
+//     header: 'Customer',
+//     cell: (info) => {
+//       console.log("info: ", info)
+//       return (
+//         // <div className="flex items-center gap-3">
+//         //   <Image
+//         //     src={invoice.image_url}
+//         //     className="rounded-full"
+//         //     width={28}
+//         //     height={28}
+//         //     alt={`${invoice.name}'s profile picture`}
+//         //   />
+//         //   <p>{invoice.name}</p>
+//         // </div>
+//         null
+//       );
+//     },
+//   },
+//   {
+//     accessorKey: 'email',
+//     header: 'Email',
+//   },
+//   {
+//     accessorKey: 'amount',
+//     header: 'Amount',
+//   },
+//   {
+//     accessorKey: 'date',
+//     header: 'Date',
+//   },
+//   {
+//     accessorKey: 'status',
+//     header: 'Status',
+//   },
+// ];
+
+export default async function ITable({
   query,
   currentPage,
 }: {
@@ -54,6 +109,7 @@ export default async function InvoicesTable({
               </div>
             ))}
           </div>
+          {/* <TTable columns={columns} data={invoices} /> */}
           <table className="hidden min-w-full text-gray-900 md:table">
             <thead className="rounded-lg text-left text-sm font-normal">
               <tr>
