@@ -1,15 +1,15 @@
 import Image from 'next/image';
 import { UpdateInvoice, DeleteInvoice } from '@/app/ui/invoices/buttons';
 import InvoiceStatus from '@/app/ui/invoices/status';
-import { formatDateToLocal, formatCurrency } from '@/lib/utils';
-import { fetchFilteredInvoices } from '@/lib/data';
+import { formatDateToLocal, formatCurrency } from '@/app/lib/utils';
+import { fetchFilteredInvoices } from '@/app/lib/data';
 import {
   useReactTable,
   ColumnDef,
   getCoreRowModel,
   flexRender,
 } from '@tanstack/react-table';
-import { InvoicesTable } from '@/lib/definitions';
+import { InvoicesTable } from '@/app/lib/definitions';
 import {
   Table,
   TableBody,
@@ -17,7 +17,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
+} from '@/app/ui/table';
 import TTable from './TTable';
 
 // const columns: ColumnDef<InvoicesTable>[] = [
