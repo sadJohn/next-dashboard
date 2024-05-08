@@ -112,11 +112,14 @@ export async function deleteInvoice(id: string) {
 
 export async function authenticate(
   prevState: string | undefined,
-  formData: FormData & { provider: string },
+  payload: FormData | string,
 ) {
   try {
-    const { provider, ...rest } = formData;
-    await signIn(provider, rest);
+    if (typeof payload === 'string') {
+      await signIn(payload);
+    } else {
+      await signIn('credentials', payload);
+    }
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
