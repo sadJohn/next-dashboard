@@ -11,10 +11,12 @@ import {
 import { Button } from '@/app/ui/button';
 import { createInvoice } from '@/app/lib/actions';
 import { useFormState } from 'react-dom';
+import { useRouter } from 'next/navigation';
 
 export default function Form({ customers }: { customers: CustomerField[] }) {
   const initialState = { message: null, errors: {} };
   const [state, dispatch] = useFormState(createInvoice, initialState);
+  const router = useRouter();
 
   return (
     <form action={dispatch}>
@@ -134,12 +136,14 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
         </fieldset>
       </div>
       <div className="mt-6 flex justify-end gap-4">
-        <Link
-          href="/dashboard/invoices"
-          className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
+        <Button
+          onClick={() => {
+            router.back();
+          }}
+          variant="outline"
         >
           Cancel
-        </Link>
+        </Button>
         <Button type="submit">Create Invoice</Button>
       </div>
     </form>
